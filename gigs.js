@@ -10,7 +10,24 @@ async function fetchCSVandConvertToJSON() {
         const headers = rows.shift().split(',');
 
         const jsonData = rows.map(row => {
-            const values = row.split(',');
+            const values = [];
+            let inQuotes = false;
+            let value = '';
+
+            for (let char of row) {
+                if (char === '"' && !inQuotes) {
+                    inQuotes = true;
+                } else if (char === '"' && inQuotes) {
+                    inQuotes = false;
+                } else if (char === ',' && !inQuotes) {
+                    values.push(value);
+                    value = '';
+                } else {
+                    value += char;
+                }
+            }
+            values.push(value);
+
             return headers.reduce((acc, header, index) => {
                 acc[header] = values[index];
                 return acc;
@@ -40,38 +57,43 @@ function generateDaysOfYear() {
 
 function displayGigs(gigs) {
     const gigList = document.getElementById('gig-list');
-    const daysOfYear = generateDaysOfYear();
 
-    daysOfYear.forEach(day => {
-        const formattedDay = `${day.getDate()} ${day.toLocaleString('en-US', { month: 'long' })}`;
-        const gigsOnDay = gigs.filter(gig => gig.Date.startsWith(formattedDay));
+    let today = new Date();
+    //If there is a date in the querystring, in YYYYMMDD format, use that instead of today
+    const urlParams = new URLSearchParams(window.location.search);
+    const dateParam = urlParams.get('date');
 
-        const dayDiv = document.createElement('div');
-        dayDiv.classList.add('day');
-        dayDiv.innerHTML = `<h3>${formattedDay}</h3>`;
+    if (dateParam && dateParam.length === 8) {
+        today = new Date(dateParam.substring(0, 4), dateParam.substring(4, 6) - 1, dateParam.substring(6, 8));
+    }
 
-        if (gigsOnDay.length > 0) {
-            gigsOnDay.forEach(gig => {
-                const gigDetails = document.createElement('div');
-                gigDetails.classList.add('gig');
-                gigDetails.innerHTML = `
-                    <p><strong>Date:</strong> ${gig.Date}</p>
-                    <p><strong>Band:</strong> ${gig.Band}</p>
-                    <p><strong>Headline:</strong> ${gig.Headline}</p>
-                    <p><strong>Support:</strong> ${gig.Support}</p>
-                    <p><strong>Venue:</strong> ${gig.Venue}</p>
-                    <p><strong>Notes:</strong> ${gig.Notes}</p>
-                `;
-                dayDiv.appendChild(gigDetails);
-            });
-        } else {
-            const noGigsMessage = document.createElement('p');
-            noGigsMessage.textContent = "No gigs attended today.";
-            dayDiv.appendChild(noGigsMessage);
-        }
-
-        gigList.appendChild(dayDiv);
+    // Get the items in the gigs array that have a starting with today's day and month
+    const gigsOnDay = gigs.filter(gig => {
+        const gigDate = new Date(gig.Date);
+    
+        return gigDate.getDate() === today.getDate() && gigDate.getMonth() === today.getMonth();
     });
+    
+    const formattedDay = today.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
+
+    const dayDiv = document.createElement('div');
+    dayDiv.classList.add('day');
+    dayDiv.innerHTML = `<h3>${formattedDay}</h3>`;
+
+    if (gigsOnDay.length > 0) {
+        gigsOnDay.forEach(gig => {
+            const gigDetails = document.createElement('h6');
+            gigDetails.innerHTML = gig.Concatenate;
+            dayDiv.appendChild(gigDetails);
+        });
+    } else {
+        const noGigsMessage = document.createElement('h6');
+        noGigsMessage.textContent = "No gigs attended today.";
+        dayDiv.appendChild(noGigsMessage);
+    }
+
+    gigList.appendChild(dayDiv);
+
 }
 
 async function init() {

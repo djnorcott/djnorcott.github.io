@@ -1,3 +1,6 @@
+// define a global variable to store the gig list in
+let gigs = [];
+
 async function fetchCSVandConvertToJSON() {
     try {
         const response = await fetch('gigs.csv');
@@ -97,8 +100,74 @@ function displayGigs(gigs) {
 }
 
 async function init() {
-    const gigs = await fetchCSVandConvertToJSON();
+    gigs = await fetchCSVandConvertToJSON();
     displayGigs(gigs);
 }
 
 init();
+
+/**
+ * If enter is pressed in the search-input text box, or the #search-button is pressed, call a function with the value of the search-input text box
+ */
+
+document.getElementById('search-button').addEventListener('click', function() {
+    search();
+    
+    // suppress the default form submission
+    return false;
+});
+
+document.getElementById('search-input').addEventListener('keyup', function(event) {
+    if (event.key === 'Enter') {
+        search();
+
+        // suppress the default form submission
+        return false;
+    }
+});
+
+function search() {
+    const searchValue = document.getElementById('search-input').value;
+    if (searchValue) {
+        
+        // Find any gigs that contain the search value in the concatenate field
+        const searchResults = gigs.filter(gig => gig.Concatenate.toLowerCase().includes(searchValue.toLowerCase()));
+
+        // order by Gig Date
+        searchResults.sort((a, b) => {
+            return new Date(a.Date) - new Date(b.Date);
+        });
+
+        // Clear the current gig list
+        document.getElementById('gig-list').innerHTML = '';
+
+        // If none were found display a message
+        if (searchResults.length === 0) {
+            const noGigsMessage = document.createElement('h6');
+            noGigsMessage.textContent = "No gigs found containing '" + searchValue + "'";
+            document.getElementById('gig-list').appendChild(noGigsMessage);
+        } else {
+            const searchResultsHeader = document.createElement('h5');
+            searchResultsHeader.textContent = "Gigs found containing '" + searchValue + "'";
+            document.getElementById('gig-list').appendChild(searchResultsHeader);
+        }
+
+        // Display the search results
+        searchResults.forEach(gig => {
+            const gigDetails = document.createElement('h6');
+
+            gigOutput = gig.Concatenate;
+
+            // Remove everything before Mike saw
+            gigOutput = gigOutput.substring(gigOutput.indexOf("Mike saw") )
+
+            gigOutput = "On " + gig.Date + " " + gigOutput;
+
+            gigDetails.innerHTML = gigOutput;
+            document.getElementById('gig-list').appendChild(gigDetails);
+        });
+
+        // Remove the show-modal class from #search-modal
+        document.getElementById('search-modal').classList.remove('show-modal');
+    }
+}

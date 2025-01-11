@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Basic HTML Page</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&display=swap"
+        rel="stylesheet">
+    <style>
+        body {
+            font-family: "Crimson Text", serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            text-align: center;
+        }
+
+        header,
+        footer {
+            text-align: center;
+            padding: 1em;
+            background-color: #f4f4f4;
+        }
+
+        main {
+            flex: 1;
+            padding: 20px;
+        }
+
+        .slider {
+            display: flex;
+            overflow-x: auto;
+            gap: 10px;
+            padding: 10px 0;
+        }
+
+        .slider img {
+            border-radius: 5px;
+        }
+
+        footer {
+            font-size: 0.9em;
+            color: #666;
+        }
+
+        ul {
+            list-style-position: inside;
+            margin: 0 auto; /* Center align the list */
+            max-width: 500px; /* Set maximum width */
+            padding: 0; /* Remove default padding */
+            text-align: left; /* Align text to the left */
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>Remember What It Is That You Love</h1>
+    </header>
+    <main>
+        <header class="page-header entry-header m-auto px ">
+            <h1 class="post__title m-0 text-center">About</h1>
+        </header>
+        <div class="content-area__wrapper">
+            <div class="content-area entry-content">
+
+                <p>During Mike Woodhouse&#8217;s short life he attended 640 gigs. He meticulously recorded all of them
+                    in a
+                    spreadsheet. </p>
+
+                <p>This website is an online version of the spreadsheet, created by one of his many friends <a
+                        href="../cdn-cgi/l/email-protection.html#dfb8bab0adb8baf1b0a9baadabb0b19fbdabb6b1abbaadb1baabf1bcb0b2">georgethe23rd</a>.
+                </p>
+
+                <p>The website is called &#8220;Remember What It Is That You Love&#8221;, which is a song by one of
+                    Mike&#8217;s
+                    favourite bands, The Family Cat (he saw them 33 times). It was played at his funeral.</p>
+
+               
+                <iframe title="The Family Cat - Remember What It Is That You Love" width="660" height="495"
+                    src="https://www.youtube.com/embed/n1f-8UqzFIE?feature=oembed" frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+               
+                <p>Some brief statistics:</p>
+
+                <ul>
+                    <li>Mike&#8217;s first gig was AC/DC at Manchester Apollo, 3 October 1982</li>
+                    <li>His 100th was That Petrol Emotion at Brixton The Fridge, 17 October 1990</li>
+                    <li>His 500th was Vaselines at Nottingham Rescue Rooms, 20 September 2010</li>
+                    <li>His final gig was seeing House of Love and October Drift at the Rockaway Beach Festival, Bognor
+                        Regis
+                        Butlins, 9 January 2022</li>
+                </ul>
+            </div>
+        </div>
+    </main>
+    <footer>
+        &copy; 2025 Remember What It Is That You Love
+    </footer>
+</body>
+</html>

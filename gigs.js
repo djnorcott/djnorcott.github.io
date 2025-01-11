@@ -81,16 +81,16 @@ function displayGigs(gigs) {
 
     const dayDiv = document.createElement('div');
     dayDiv.classList.add('day');
-    dayDiv.innerHTML = `<h3>${formattedDay}</h3>`;
+    dayDiv.innerHTML = `<h2>${formattedDay}</h2>`;
 
     if (gigsOnDay.length > 0) {
         gigsOnDay.forEach(gig => {
-            const gigDetails = document.createElement('h6');
+            const gigDetails = document.createElement('p');
             gigDetails.innerHTML = gig.Concatenate;
             dayDiv.appendChild(gigDetails);
         });
     } else {
-        const noGigsMessage = document.createElement('h6');
+        const noGigsMessage = document.createElement('p');
         noGigsMessage.textContent = "No gigs attended today.";
         dayDiv.appendChild(noGigsMessage);
     }
@@ -109,7 +109,6 @@ init();
 /**
  * If enter is pressed in the search-input text box, or the #search-button is pressed, call a function with the value of the search-input text box
  */
-
 document.getElementById('search-button').addEventListener('click', function() {
     search();
     
@@ -168,6 +167,6 @@ function search() {
         });
 
         // Remove the show-modal class from #search-modal
-        document.getElementById('search-modal').classList.remove('show-modal');
+        $('#searchModal').modal('hide');
     }
 }

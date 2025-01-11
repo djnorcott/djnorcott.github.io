@@ -129,11 +129,14 @@ function search() {
     const searchValue = document.getElementById('search-input').value;
     if (searchValue) {
         
+        // trim the search value
+        searchValue.trim();
+
         // Find any gigs that contain the search value in the concatenate or date field
         const searchResults = gigs.filter(gig => {
             return gig.Concatenate.toLowerCase().includes(searchValue.toLowerCase()) || gig.Date.toLowerCase().includes(searchValue.toLowerCase());
         });
-        
+
         // order by Gig Date
         searchResults.sort((a, b) => {
             return new Date(a.Date) - new Date(b.Date);

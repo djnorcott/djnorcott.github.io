@@ -153,7 +153,10 @@ function search() {
 
         // Display the search results
         searchResults.forEach(gig => {
-            const gigDetails = document.createElement('h6');
+            const gigUl = document.createElement('ul');
+            gigUl.classList.add('list-group');
+            const gigDetails = document.createElement('li');
+            gigDetails.classList.add('list-group-item');
 
             gigOutput = gig.Concatenate;
 
@@ -163,7 +166,8 @@ function search() {
             gigOutput = "On " + gig.Date + " " + gigOutput;
 
             gigDetails.innerHTML = gigOutput;
-            document.getElementById('gig-list').appendChild(gigDetails);
+            gigUl.appendChild(gigDetails);
+            document.getElementById('gig-list').appendChild(gigUl);
         });
 
         // Remove the show-modal class from #search-modal

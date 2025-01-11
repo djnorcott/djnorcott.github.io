@@ -63,6 +63,10 @@
             font-size: 0.9em;
             color: #666;
         }
+
+        .list-group-item {
+            border: 0px; 
+        }
     </style>
 </head>
 
@@ -74,7 +78,10 @@
                     <i class="fas fa-search"></i>
                 </a>
             </div>
-            <h1 class="header-title mx-auto">Remember What It Is That You Love</h1>
+            <div class="text-center mx-auto">
+                <h1 class="header-title">Remember What It Is That You Love</h1>
+                <p>A tribute to Mike Woodhouse (1965 - 2022)</p>
+            </div>
             <a id="about" class="btn btn-link">About</a>
         </div>
     </header>
@@ -110,12 +117,14 @@
         <!-- new modal called about -->
         <div class="modal fade" id="aboutModal" tabindex="-1" aria-labelledby="aboutModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-lg">
+                <div class="modal-header">
+                    <h5>About Mike</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
                 <div class="modal-content">
                     <div class="modal-body text-left">
-
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
                         <p>During Mike Woodhouse&#8217;s short life he attended 640 gigs. He meticulously recorded all
                             of them
                             in a
@@ -130,12 +139,8 @@
                             Mike&#8217;s
                             favourite bands, The Family Cat (he saw them 33 times). It was played at his funeral.</p>
 
-
-                        <iframe title="The Family Cat - Remember What It Is That You Love" width="660" height="495"
-                            src="https://www.youtube.com/embed/n1f-8UqzFIE?feature=oembed" frameborder="0"
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                            referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-
+                            <iframe title="The Family Cat - Remember What It Is That You Love" class="w-100," src="https://www.youtube.com/embed/n1f-8UqzFIE?feature=oembed" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+       
                         <p>Some brief statistics:</p>
 
                         <ul>
